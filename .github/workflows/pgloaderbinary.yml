@@ -1,0 +1,26 @@
+name: pgloader binary
+
+on: workflow_dispatch
+
+jobs:
+
+  cp:
+    runs-on: ubuntu-22.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install pgloader
+        run: sudo apt-get install pgloader
+
+      - name: Run pgloader
+        run: pgloader --version
+
+      - name: cp pgloader
+        run: cp $(which pgloader) .
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: pgloader
